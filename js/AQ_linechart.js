@@ -8,7 +8,7 @@ class AQ_LineChart {
   constructor(_config, _data) {
     this.config = {
       parentElement: _config.parentElement,
-      containerWidth: _config.containerWidth || 800,
+      containerWidth: _config.containerWidth || 600,
       containerHeight: _config.containerHeight || 250,
       margin: _config.margin || {top: 25, right: 30, bottom: 50, left: 70}
     }
@@ -146,7 +146,7 @@ class AQ_LineChart {
       .attr("y", -vis.config.margin.left +20)
       .attr("x", -vis.config.margin.top )
       .attr("font-size","20px")
-      .text("Air Quality Index")
+      .text("Air Quality Index");
       
     // Update the axes
     vis.xAxisG.call(vis.xAxis);

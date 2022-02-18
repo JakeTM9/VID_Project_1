@@ -8,9 +8,9 @@ class AQ_BarChart {
     constructor(_config, _data) {
       this.config = {
         parentElement: _config.parentElement,
-        containerWidth: _config.containerWidth || 800,
+        containerWidth: _config.containerWidth || 600,
         containerHeight: _config.containerHeight || 250,
-        margin: _config.margin || {top: 25, right: 30, bottom: 30, left: 200}
+        margin: _config.margin || {top: 25, right: 30, bottom: 60, left: 150}
       }
       this.data = _data;
       this.data = this.data[41];
@@ -31,7 +31,7 @@ class AQ_BarChart {
           .domain([0,100])
           .range([0, vis.width]);
       
-      let QualityGrades = ["Good", "Moderate", "Unhealthy for Sensitive People", "Unhealthy", "Very Unhealthy", "Hazardous"]
+      let QualityGrades = ["Good", "Moderate", "Slightly Unhealthy", "Unhealthy", "Very Unhealthy", "Hazardous"]
       vis.yScale = d3.scaleBand()
           .domain(QualityGrades)
           .range([0, vis.height])
@@ -121,7 +121,7 @@ class AQ_BarChart {
           .attr('class', 'chart-bar3')
           .attr('width', d => vis.xScale(d.UnhelathySensitive))
           .attr('height', vis.yScale.bandwidth())
-          .attr('y', vis.yScale("Unhealthy for Sensitive People"))
+          .attr('y', vis.yScale("Slightly Unhealthy"))
           .attr('x',0);
       
           vis.chart.append("rect")
@@ -148,7 +148,22 @@ class AQ_BarChart {
           .attr('y', vis.yScale("Hazardous"))
           .attr('x',0);
       
-        
+      //axes titles
+      vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("x", vis.width/2)
+      .attr("y", vis.height +50)
+      .attr("font-size","20px")
+      .text("Percentage of Year");
+
+      vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -vis.config.margin.left +20)
+      .attr("x", -vis.config.margin.top -20 )
+      .attr("font-size","20px")
+      .text("Grade");
+    
       // Update the axes
       vis.xAxisG.call(vis.xAxis);
       vis.yAxisG.call(vis.yAxis);

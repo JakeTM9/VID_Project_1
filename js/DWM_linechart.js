@@ -8,9 +8,9 @@ class DWM_LineChart {
     constructor(_config, _data) {
       this.config = {
         parentElement: _config.parentElement,
-        containerWidth: _config.containerWidth || 800,
+        containerWidth: _config.containerWidth || 600,
         containerHeight: _config.containerHeight || 250,
-        margin: _config.margin || {top: 25, right: 30, bottom: 30, left: 50}
+        margin: _config.margin || {top: 25, right: 30, bottom: 50, left: 70}
       }
       this.data = _data;
       this.initVis();
@@ -104,7 +104,22 @@ class DWM_LineChart {
           .data([vis.data])
           .attr('class', 'chart-line')
           .attr('d', vis.line);
-        
+      
+      //axes titles
+      vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("x", vis.width/2)
+      .attr("y", vis.height +50)
+      .attr("font-size","20px")
+      .text("Year");
+
+    vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -vis.config.margin.left +20)
+      .attr("x", -vis.config.margin.top - 30)
+      .attr("font-size","20px")
+      .text("Days");
       // Update the axes
       vis.xAxisG.call(vis.xAxis);
       vis.yAxisG.call(vis.yAxis);

@@ -8,9 +8,9 @@ class POL_BarChart {
     constructor(_config, _data) {
       this.config = {
         parentElement: _config.parentElement,
-        containerWidth: _config.containerWidth || 800,
+        containerWidth: _config.containerWidth || 600,
         containerHeight: _config.containerHeight || 250,
-        margin: _config.margin || {top: 25, right: 30, bottom: 30, left: 200}
+        margin: _config.margin || {top: 25, right: 30, bottom: 60, left: 150}
       }
       this.data = _data;
       this.data = this.data[41];
@@ -141,7 +141,21 @@ class POL_BarChart {
           .attr('y', vis.yScale("PM10"))
           .attr('x',0);
       
-        
+        //axes titles
+        vis.chart.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", vis.width/2)
+        .attr("y", vis.height +50)
+        .attr("font-size","20px")
+        .text("Percentage of Year");
+
+        vis.chart.append("text")
+        .attr("text-anchor", "end")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -vis.config.margin.left +80)
+        .attr("x", -vis.config.margin.top -20 )
+        .attr("font-size","20px")
+        .text("Pollutant");
       // Update the axes
       vis.xAxisG.call(vis.xAxis);
       vis.yAxisG.call(vis.yAxis);
