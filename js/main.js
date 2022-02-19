@@ -1,7 +1,7 @@
 
 // We use d3.timeParse() to convert a string into JS date object
 // Initialize helper function
-const parseTime = d3.timeParse("%Y-%m-%d");
+
 
 let data, AQ_lineChart, POL_lineChart, DWM_lineChart, AQ_barChart; 
 
@@ -62,13 +62,13 @@ d3.csv('data/data.csv')
     
 
     // Initialize and render chart
-    AQ_lineChart = new AQ_LineChart({ parentElement: '#AQ_chart'}, initalData1);
+    AQ_lineChart = new AQ_LineChart({ parentElement: '#AQ_chart'}, initalData1, true);
     AQ_lineChart.updateVis();
 
-    POL_lineChart = new POL_LineChart({ parentElement: '#POL_chart'}, initalData1);
+    POL_lineChart = new POL_LineChart({ parentElement: '#POL_chart'}, initalData1, true);
     POL_lineChart.updateVis();
 
-    DWM_lineChart = new DWM_LineChart({ parentElement: '#DWM_chart'}, initalData1);
+    DWM_lineChart = new DWM_LineChart({ parentElement: '#DWM_chart'}, initalData1, true);
     DWM_lineChart.updateVis();
 
     AQ_barChart = new AQ_BarChart({ parentElement: '#AQ_barchart'}, initalData1);
@@ -97,11 +97,19 @@ d3.csv('data/data.csv')
 /**
  * Input field event listeners
  */
-const counties = {};
+function updateTitlesLeft(countyArr) {
+  document.getElementById("airQualityLineLeft").innerHTML = "Air Quality of " + countyArr[0] + " by Year";
+  document.getElementById("pollutantLineLeft").innerHTML = "Main Pollutant Prevelance in " + countyArr[0] +" by Year";
+  document.getElementById("DaysWithoutLeft").innerHTML = "Days Without Air Quality Measurements in " + countyArr[0] + " Per Year";
+  document.getElementById("airQualityBarLeft").innerHTML = countyArr[0] + " Air Quality in 2021";
+  document.getElementById("pollutantBarLeft").innerHTML = "Main Pollutant Prevelance in "+ countyArr[0] + " in 2021";
+}
 
 function updateLeft(county) {
   
   var countyArr = county.split(','); // :D
+  
+  updateTitlesLeft(countyArr);
   
   let filteredData=data.filter(d => d.County === countyArr[0] && d.State === countyArr[1]);
   AQ_lineChart.data = filteredData;
@@ -120,10 +128,21 @@ function updateLeft(county) {
   POL_barChart.updateVis();
 
 }
+
+function updateTitlesRight(countyArr) {
+  document.getElementById("airQualityLineRight").innerHTML = "Air Quality of " + countyArr[0] + " by Year";
+  document.getElementById("pollutantLineRight").innerHTML = "Main Pollutant Prevelance in " + countyArr[0] +" by Year";
+  document.getElementById("DaysWithoutRight").innerHTML = "Days Without Air Quality Measurements in " + countyArr[0] + " Per Year";
+  document.getElementById("airQualityBarRight").innerHTML = countyArr[0] + " Air Quality in 2021";
+  document.getElementById("pollutantBarRight").innerHTML = "Main Pollutant Prevelance in "+ countyArr[0] + " in 2021";
+}
+
 function updateRight(county) {
   
   var countyArr = county.split(','); // :D again
   
+  updateTitlesRight(countyArr);
+
   let filteredData=data.filter(d => d.County === countyArr[0] && d.State === countyArr[1]);
   AQ_lineChart2.data = filteredData;
   AQ_lineChart2.updateVis();
@@ -140,4 +159,30 @@ function updateRight(county) {
   POL_barChart2.data = filteredData[filteredData.length -1];
   POL_barChart2.updateVis();
 
+}
+
+function update(year, yearData, isLeft) {
+  console.log("yo");
+  if(isLeft){
+
+    AQ_barChart.data = yearData;
+    AQ_barChart.updateVis();
+
+    POL_barChart.data = yearData;
+    POL_barChart.updateVis();
+    
+    document.getElementById("airQualityBarLeft").innerHTML = document.getElementById("airQualityBarLeft").innerHTML.slice(0, -4) + year; //:)
+    document.getElementById("pollutantBarLeft").innerHTML = document.getElementById("pollutantBarLeft").innerHTML.slice(0, -4) + year;
+  }
+  else{
+
+    AQ_barChart2.data = yearData;
+    AQ_barChart2.updateVis();
+
+    POL_barChart2.data = yearData;
+    POL_barChart2.updateVis();
+    
+    document.getElementById("airQualityBarRight").innerHTML = document.getElementById("airQualityBarRight").innerHTML.slice(0, -4) + year; //:)
+    document.getElementById("pollutantBarRight").innerHTML = document.getElementById("pollutantBarRight").innerHTML.slice(0, -4) + year;
+  }
 }

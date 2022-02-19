@@ -5,7 +5,7 @@ class POL_LineChart {
      * @param {Object}
      * @param {Array}
      */
-    constructor(_config, _data) {
+    constructor(_config, _data, isLeft) {
       this.config = {
         parentElement: _config.parentElement,
         containerWidth: _config.containerWidth || 600,
@@ -14,6 +14,7 @@ class POL_LineChart {
       }
       this.data = _data;
       this.initVis();
+      this.isLeft = isLeft; //workaround for passing main.js year data
     }
     
     /**
@@ -86,7 +87,7 @@ class POL_LineChart {
        .attr("x", -vis.config.margin.top +25)
        .attr("font-size","12px")
        .text("Percentage of Year Largest Pollutant")
-       
+
     }
   
     /**
@@ -183,6 +184,20 @@ class POL_LineChart {
         .attr('class', 'chart-line6')
         .attr('d', vis.line6);
 
+      vis.chart.selectAll('rect')
+      .on('click', (event) => {
+        console.log(vis.xScale.invert(event.layerX-70));
+        let year = vis.xScale.invert(event.layerX-70)
+        console.log(year);
+        let index = vis.bisectDate(vis.data, year, 1);
+        let a = vis.data[index - 1];
+        let b = vis.data[index];
+        let d = b && ( year - a.Year > b.Year - year) ? b : a;
+        let specificYearData = d;
+        //disgusting but it is 11pm Friday
+        update(year.getYear() + 1900, specificYearData, vis.isLeft);
+  
+      });
        
     
         
