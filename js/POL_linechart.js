@@ -71,6 +71,22 @@ class POL_LineChart {
           .attr('fill', 'none')
           .attr('pointer-events', 'all');
   
+       //axes titles
+       vis.chart.append("text")
+       .attr("text-anchor", "end")
+       .attr("x", vis.width/2)
+       .attr("y", vis.height +50)
+       .attr("font-size","20px")
+       .text("Year");
+ 
+     vis.chart.append("text")
+       .attr("text-anchor", "end")
+       .attr("transform", "rotate(-90)")
+       .attr("y", -vis.config.margin.left +20)
+       .attr("x", -vis.config.margin.top +25)
+       .attr("font-size","12px")
+       .text("Percentage of Year Largest Pollutant")
+       
     }
   
     /**
@@ -133,6 +149,9 @@ class POL_LineChart {
     renderVis() {
       let vis = this;
   
+      //remove old
+    vis.chart.selectAll("path").remove();
+
       // Add line path
       vis.chart.append("path")
           .data([vis.data])
@@ -164,21 +183,7 @@ class POL_LineChart {
         .attr('class', 'chart-line6')
         .attr('d', vis.line6);
 
-        //axes titles
-        vis.chart.append("text")
-        .attr("text-anchor", "end")
-        .attr("x", vis.width/2)
-        .attr("y", vis.height +50)
-        .attr("font-size","20px")
-        .text("Year");
-  
-      vis.chart.append("text")
-        .attr("text-anchor", "end")
-        .attr("transform", "rotate(-90)")
-        .attr("y", -vis.config.margin.left +20)
-        .attr("x", -vis.config.margin.top +25)
-        .attr("font-size","12px")
-        .text("Percentage of Year Largest Pollutant")
+       
     
         
       // Update the axes

@@ -70,7 +70,22 @@ class DWM_LineChart {
           .attr('height', vis.height)
           .attr('fill', 'none')
           .attr('pointer-events', 'all');
-  
+      
+      //axes titles
+      vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("x", vis.width/2)
+      .attr("y", vis.height +50)
+      .attr("font-size","20px")
+      .text("Year");
+
+    vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -vis.config.margin.left +20)
+      .attr("x", -vis.config.margin.top - 30)
+      .attr("font-size","20px")
+      .text("Days");
     }
   
     /**
@@ -99,27 +114,15 @@ class DWM_LineChart {
     renderVis() {
       let vis = this;
   
+      //remove old
+    vis.chart.selectAll("path").remove();
+
       // Add line path
       vis.chart.append("path")
           .data([vis.data])
           .attr('class', 'chart-line')
           .attr('d', vis.line);
       
-      //axes titles
-      vis.chart.append("text")
-      .attr("text-anchor", "end")
-      .attr("x", vis.width/2)
-      .attr("y", vis.height +50)
-      .attr("font-size","20px")
-      .text("Year");
-
-    vis.chart.append("text")
-      .attr("text-anchor", "end")
-      .attr("transform", "rotate(-90)")
-      .attr("y", -vis.config.margin.left +20)
-      .attr("x", -vis.config.margin.top - 30)
-      .attr("font-size","20px")
-      .text("Days");
       // Update the axes
       vis.xAxisG.call(vis.xAxis);
       vis.yAxisG.call(vis.yAxis);

@@ -15,40 +15,120 @@
             <p>Data provided by United States Enviornmental Protection Agency. Click <a href = "https://www.epa.gov/outdoor-air-quality-data/how-do-i-cite-data-and-graphics-obtained-airdata-website">here</a> for more information.</p>
           </div>
         </header>
-        <h2>Air Quality by Year</h2>
+        <!--https://ricardometring.com/getting-the-value-of-a-select-in-javascript#:~:text=To%20get%20the%20value%20of%20a%20select%20or%20dropdown%20in,value%20through%20the%20selectedIndex%20property.&text=The%20value%20%22en%22%20will%20be,J%20to%20open%20the%20console).-->
+        <br>
+        
         <!--<div>
-            Start year: <input type="number" value="2016" min="2016" max="2020" id="start-year-input">
-        </div>-->
-        <ul class="legend">
-          <li class="legend-btn" category="one"><span class="legend-symbol"></span> Max</li>
-          <li class="legend-btn" category="two"><span class="legend-symbol"></span>Median</li>
-          <li class="legend-btn" category="three"><span class="legend-symbol"></span>90th Percentile</li>
-        </ul>
-        <svg id="AQ_chart"></svg>
-        <br>
-        <br>
-        <h2>Pollutant Days in Year Percentage Main Pollutant</h2>
-        <ul class="legend">
-          <li class="legend-btn" category="one"><span class="legend-symbol"></span>CO</li>
-          <li class="legend-btn" category="two"><span class="legend-symbol"></span>NO2</li>
-          <li class="legend-btn" category="three"><span class="legend-symbol"></span>Ozone</li>
-          <li class="legend-btn" category="four"><span class="legend-symbol"></span>SO2</li>
-          <li class="legend-btn" category="five"><span class="legend-symbol"></span>PM2.5</li>
-          <li class="legend-btn" category="six"><span class="legend-symbol"></span>PM10</li>
-        </ul>
-        <svg id="POL_chart"></svg>
-        <br>
-        <br>
-        <h2>Days Without Measurement Per Year</h2>
-        <svg id="DWM_chart"></svg>
-        <br>
-        <br>
-        <h2>Air Quality in 2021</h2>
-        <svg id="AQ_barchart"></svg>
-        <br>
-        <br>
-        <h2>Pollutant Days in 2021 Percentage Main Pollutant</h2>
-        <svg id="POL_barchart"></svg>
+                Start year: <input type="number" value="2016" min="2016" max="2020" id="start-year-input">
+            </div>-->
+        <div class = "row">
+            <div class="column">
+
+              <select id="countyLeft" onChange="updateLeft(value)">
+                <option value="none" selected disabled hidden>Hamilton (OH)</option>
+                <option value="Hamilton,Ohio">Hamilton (OH)</option>
+                <option value="San Diego,California">San Diego (CA)</option>
+                <option value="Palm Beach,Florida">Palm Beach (FL)</option>
+                <option value="Los Alamos,New Mexico">Los Alamos (NM)</option>
+                <option value="Johnson,Kansas">Johnson (KS)</option>
+                <option value="Oconee,South Carolina">Oconee (SC)</option>
+                <option value="Wake,North Carolina">Wake (NC)</option>
+                <option value="Howard,Maryland">Howard (MD)</option>
+                <option value="Collin,Texas">Collin (TX)</option>
+                <option value="DuPage,Illinois">DuPage (IL)</option>
+                <option value="Madison,Alabama">Madison (AL)</option>
+                <option value="Fairbanks North Star ,Alaska">Fairbanks North Star (AK)</option>
+              </select>
+
+              <h2>Air Quality by Year</h2>
+              <!--<div>
+                  Start year: <input type="number" value="2016" min="2016" max="2020" id="start-year-input">
+              </div>-->
+              <ul class="legend">
+                <li class="legend-btn" category="one"><span class="legend-symbol"></span> Max</li>
+                <li class="legend-btn" category="two"><span class="legend-symbol"></span>Median</li>
+                <li class="legend-btn" category="three"><span class="legend-symbol"></span>90th Percentile</li>
+              </ul>
+              <svg id="AQ_chart"></svg>
+              <br>
+              <br>
+              <h2>Pollutant Days in Year Percentage Main Pollutant</h2>
+              <ul class="legend">
+                <li class="legend-btn" category="one"><span class="legend-symbol"></span>CO</li>
+                <li class="legend-btn" category="two"><span class="legend-symbol"></span>NO2</li>
+                <li class="legend-btn" category="three"><span class="legend-symbol"></span>Ozone</li>
+                <li class="legend-btn" category="four"><span class="legend-symbol"></span>SO2</li>
+                <li class="legend-btn" category="five"><span class="legend-symbol"></span>PM2.5</li>
+                <li class="legend-btn" category="six"><span class="legend-symbol"></span>PM10</li>
+              </ul>
+              <svg id="POL_chart"></svg>
+              <br>
+              <br>
+              <h2>Days Without Measurement Per Year</h2>
+              <svg id="DWM_chart"></svg>
+              <br>
+              <br>
+              <h2>Air Quality in 2021</h2>
+              <svg id="AQ_barchart"></svg>
+              <br>
+              <br>
+              <h2>Pollutant Days in 2021 Percentage Main Pollutant</h2>
+              <svg id="POL_barchart"></svg>
+              </div>
+          <div class="column">
+
+            <select id="countyRight" onChange="updateRight(value)">
+              <option value="none" selected disabled hidden>San Diego (CA)</option>
+              <option value="Hamilton,Ohio">Hamilton (OH)</option>
+              <option value="San Diego,California">San Diego (CA)</option>
+              <option value="Palm Beach,Florida">Palm Beach (FL)</option>
+              <option value="Los Alamos,New Mexico">Los Alamos (NM)</option>
+              <option value="Johnson,Kansas">Johnson (KS)</option>
+              <option value="Oconee,South Carolina">Oconee (SC)</option>
+              <option value="Wake,North Carolina">Wake (NC)</option>
+              <option value="Howard,Maryland">Howard (MD)</option>
+              <option value="Collin,Texas">Collin (TX)</option>
+              <option value="DuPage,Illinois">DuPage (IL)</option>
+              <option value="Madison,Alabama">Madison (AL)</option>
+              <option value="Fairbanks North Star ,Alaska">Fairbanks North Star (AK)</option>
+            </select>
+
+            <h2>Air Quality by Year</h2>
+            
+            <ul class="legend">
+              <li class="legend-btn" category="one"><span class="legend-symbol"></span> Max</li>
+              <li class="legend-btn" category="two"><span class="legend-symbol"></span>Median</li>
+              <li class="legend-btn" category="three"><span class="legend-symbol"></span>90th Percentile</li>
+            </ul>
+            <svg id="AQ_chart2"></svg>
+            <br>
+            <br>
+            <h2>Pollutant Days in Year Percentage Main Pollutant</h2>
+            <ul class="legend">
+              <li class="legend-btn" category="one"><span class="legend-symbol"></span>CO</li>
+              <li class="legend-btn" category="two"><span class="legend-symbol"></span>NO2</li>
+              <li class="legend-btn" category="three"><span class="legend-symbol"></span>Ozone</li>
+              <li class="legend-btn" category="four"><span class="legend-symbol"></span>SO2</li>
+              <li class="legend-btn" category="five"><span class="legend-symbol"></span>PM2.5</li>
+              <li class="legend-btn" category="six"><span class="legend-symbol"></span>PM10</li>
+            </ul>
+            <svg id="POL_chart2"></svg>
+            <br>
+            <br>
+            <h2>Days Without Measurement Per Year</h2>
+            <svg id="DWM_chart2"></svg>
+            <br>
+            <br>
+            <h2>Air Quality in 2021</h2>
+            <svg id="AQ_barchart2"></svg>
+            <br>
+            <br>
+            <h2>Pollutant Days in 2021 Percentage Main Pollutant</h2>
+            <svg id="POL_barchart2"></svg>
+            </div>
+          </div>
+        </div>
+        
         <!--<div class="source">
             Source: Data from <a href="https://finance.yahoo.com">finance.yahoo.com</a>
         </div> -->

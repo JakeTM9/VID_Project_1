@@ -13,8 +13,7 @@ class POL_BarChart {
         margin: _config.margin || {top: 25, right: 30, bottom: 60, left: 150}
       }
       this.data = _data;
-      this.data = this.data[41];
-      console.log(this.data);
+      this.data = this.data[this.data.length -1];
       this.initVis();
     }
     
@@ -75,7 +74,22 @@ class POL_BarChart {
           .attr('height', vis.height)
           .attr('fill', 'none')
           .attr('pointer-events', 'all');
-  
+        
+        //axes titles
+        vis.chart.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", vis.width/2)
+        .attr("y", vis.height +50)
+        .attr("font-size","20px")
+        .text("Percentage of Year");
+
+        vis.chart.append("text")
+        .attr("text-anchor", "end")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -vis.config.margin.left +80)
+        .attr("x", -vis.config.margin.top -20 )
+        .attr("font-size","20px")
+        .text("Pollutant");
     }
   
     /**
@@ -93,6 +107,9 @@ class POL_BarChart {
       let vis = this;
       // Add bar path
         //["CO", "NO2", "Ozone", "SO2", "PM2.5", "PM10"]
+    //remove old
+    vis.chart.selectAll("rect").remove();
+
       vis.chart.append("rect")
           .data([vis.data])
           .attr('class', 'chart-bar')
@@ -141,21 +158,7 @@ class POL_BarChart {
           .attr('y', vis.yScale("PM10"))
           .attr('x',0);
       
-        //axes titles
-        vis.chart.append("text")
-        .attr("text-anchor", "end")
-        .attr("x", vis.width/2)
-        .attr("y", vis.height +50)
-        .attr("font-size","20px")
-        .text("Percentage of Year");
-
-        vis.chart.append("text")
-        .attr("text-anchor", "end")
-        .attr("transform", "rotate(-90)")
-        .attr("y", -vis.config.margin.left +80)
-        .attr("x", -vis.config.margin.top -20 )
-        .attr("font-size","20px")
-        .text("Pollutant");
+        
       // Update the axes
       vis.xAxisG.call(vis.xAxis);
       vis.yAxisG.call(vis.yAxis);

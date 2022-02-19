@@ -13,8 +13,7 @@ class AQ_BarChart {
         margin: _config.margin || {top: 25, right: 30, bottom: 60, left: 150}
       }
       this.data = _data;
-      this.data = this.data[41];
-      console.log(this.data);
+      this.data = this.data[this.data.length -1];
       this.initVis();
     }
     
@@ -75,6 +74,22 @@ class AQ_BarChart {
           .attr('height', vis.height)
           .attr('fill', 'none')
           .attr('pointer-events', 'all');
+      
+      //axes titles
+      vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("x", vis.width/2)
+      .attr("y", vis.height +50)
+      .attr("font-size","20px")
+      .text("Percentage of Year");
+
+      vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -vis.config.margin.left +20)
+      .attr("x", -vis.config.margin.top -20 )
+      .attr("font-size","20px")
+      .text("Grade");
   
     }
   
@@ -99,6 +114,9 @@ class AQ_BarChart {
     renderVis() {
       let vis = this;
       // Add bar path
+
+      //remove old
+    vis.chart.selectAll("rect").remove();
 
       vis.chart.append("rect")
           .data([vis.data])
@@ -148,21 +166,7 @@ class AQ_BarChart {
           .attr('y', vis.yScale("Hazardous"))
           .attr('x',0);
       
-      //axes titles
-      vis.chart.append("text")
-      .attr("text-anchor", "end")
-      .attr("x", vis.width/2)
-      .attr("y", vis.height +50)
-      .attr("font-size","20px")
-      .text("Percentage of Year");
-
-      vis.chart.append("text")
-      .attr("text-anchor", "end")
-      .attr("transform", "rotate(-90)")
-      .attr("y", -vis.config.margin.left +20)
-      .attr("x", -vis.config.margin.top -20 )
-      .attr("font-size","20px")
-      .text("Grade");
+      
     
       // Update the axes
       vis.xAxisG.call(vis.xAxis);

@@ -71,9 +71,21 @@ class AQ_LineChart {
         .attr('fill', 'none')
         .attr('pointer-events', 'all');
     
-    //labels
-    vis.svg.append("text")
-      
+    //axes titles
+    vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("x", vis.width/2)
+      .attr("y", vis.height +50)
+      .attr("font-size","20px")
+      .text("Year");
+
+    vis.chart.append("text")
+      .attr("text-anchor", "end")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -vis.config.margin.left +20)
+      .attr("x", -vis.config.margin.top )
+      .attr("font-size","20px")
+      .text("Air Quality Index");
 
   }
 
@@ -116,6 +128,9 @@ class AQ_LineChart {
   renderVis() {
     let vis = this;
 
+    //remove old
+    vis.chart.selectAll("path").remove();
+
     // Add line path
     vis.chart.append("path")
         .data([vis.data])
@@ -132,21 +147,7 @@ class AQ_LineChart {
       .attr('class', 'chart-line3')
       .attr('d', vis.line3)
 
-    //axes titles
-    vis.chart.append("text")
-      .attr("text-anchor", "end")
-      .attr("x", vis.width/2)
-      .attr("y", vis.height +50)
-      .attr("font-size","20px")
-      .text("Year");
-
-    vis.chart.append("text")
-      .attr("text-anchor", "end")
-      .attr("transform", "rotate(-90)")
-      .attr("y", -vis.config.margin.left +20)
-      .attr("x", -vis.config.margin.top )
-      .attr("font-size","20px")
-      .text("Air Quality Index");
+    
       
     // Update the axes
     vis.xAxisG.call(vis.xAxis);
